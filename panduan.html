@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Instalasi Ticketing System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(120deg, #2563eb, #1d4ed8);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .content {
+            padding: 2rem;
+        }
+        
+        .section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .section h2 {
+            color: #2563eb;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .step {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #2563eb;
+        }
+        
+        .step h3 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: #2563eb;
+        }
+        
+        .step-number {
+            background: #2563eb;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .code {
+            background: #1f2937;
+            color: #10b981;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: monospace;
+        }
+        
+        .note {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        
+        .warning {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        
+        .compatibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        .compatibility-table th, .compatibility-table td {
+            border: 1px solid #ddd;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        
+        .compatibility-table th {
+            background-color: #2563eb;
+            color: white;
+        }
+        
+        .compatibility-table tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        
+        .compatibility-table .compatible {
+            color: #10b981;
+            font-weight: bold;
+        }
+        
+        .compatibility-table .not-compatible {
+            color: #ef4444;
+            font-weight: bold;
+        }
+        
+        footer {
+            background: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 1rem;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Panduan Instalasi Ticketing System</h1>
+            <p>Kompatibilitas XAMPP dan Panduan Lengkap</p>
+        </header>
+        
+        <div class="content">
+            <div class="section">
+                <h2>Kompatibilitas XAMPP</h2>
+                <p>Aplikasi ticketing ini kompatibel dengan berbagai versi XAMPP:</p>
+                
+                <table class="compatibility-table">
+                    <thead>
+                        <tr>
+                            <th>Versi XAMPP</th>
+                            <th>Versi PHP</th>
+                            <th>Status Kompatibilitas</th>
+                            <th>Rekomendasi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>XAMPP 8.2.x</td>
+                            <td>PHP 8.2</td>
+                            <td class="compatible">Kompatibel</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>XAMPP 8.1.x</td>
+                            <td>PHP 8.1</td>
+                            <td class="compatible">Kompatibel</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>XAMPP 8.0.x</td>
+                            <td>PHP 8.0</td>
+                            <td class="compatible">Kompatibel</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>XAMPP 7.4.x</td>
+                            <td>PHP 7.4</td>
+                            <td class="compatible">Kompatibel</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>XAMPP 7.3.x</td>
+                            <td>PHP 7.3</td>
+                            <td class="compatible">Kompatibel</td>
+                            <td>⚠️</td>
+                        </tr>
+                        <tr>
+                            <td>XAMPP 7.2.x</td>
+                            <td>PHP 7.2</td>
+                            <td class="not-compatible">Tidak Kompatibel</td>
+                            <td>❌</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="note">
+                    <p><strong>Catatan:</strong> Direkomendasikan menggunakan XAMPP 7.4.x atau yang lebih baru untuk kompatibilitas dan keamanan terbaik.</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Langkah Instalasi</h2>
+                
+                <div class="step">
+                    <h3><span class="step-number">1</span>Download dan Install XAMPP</h3>
+                    <p>Download XAMPP dari website resmi:</p>
+                    <p><a href="https://www.apachefriends.org/download.html" target="_blank">https://www.apachefriends.org/download.html</a></p>
+                    <p>Pilih versi yang sesuai dengan sistem operasi Anda (Windows, Linux, atau macOS).</p>
+                </div>
+                
+                <div class="step">
+                    <h3><span class="step-number">2</span>Jalankan XAMPP Control Panel</h3>
+                    <p>Setelah instalasi selesai, buka XAMPP Control Panel dan start modul Apache dan MySQL.</p>
+                    <div class="code">
+                        # Klik tombol 'Start' untuk Apache<br>
+                        # Klik tombol 'Start' untuk MySQL
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h3><span class="step-number">3</span>Persiapkan Database</h3>
+                    <p>Buka browser dan akses http://localhost/phpmyadmin</p>
+                    <p>Buat database baru dengan nama <strong>ticketing_system</strong></p>
+                    <div class="code">
+                        CREATE DATABASE ticketing_system;
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h3><span class="step-number">4</span>Letakkan File Aplikasi</h3>
+                    <p>Simpan semua file aplikasi ticketing ke folder:</p>
+                    <div class="code">
+                        C:\xampp\htdocs\ticketing-system  (Windows)<br>
+                        /opt/lampp/htdocs/ticketing-system  (Linux)<br>
+                        /Applications/XAMPP/htdocs/ticketing-system  (macOS)
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h3><span class="step-number">5</span>Konfigurasi Database</h3>
+                    <p>Buat file config.php di folder aplikasi dengan kode berikut:</p>
+                    <div class="code">
+                        &lt;?php<br>
+                        $host = 'localhost';<br>
+                        $dbname = 'ticketing_system';<br>
+                        $username = 'root';<br>
+                        $password = '';<br>
+                        <br>
+                        try {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;$pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);<br>
+                        } catch (PDOException $e) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;die("Koneksi database gagal: " . $e->getMessage());<br>
+                        }<br>
+                        ?&gt;
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h3><span class="step-number">6</span>Buat Tabel Database</h3>
+                    <p>Jalankan query berikut di phpMyAdmin untuk membuat tabel tickets:</p>
+                    <div class="code">
+                        CREATE TABLE tickets (<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;id INT(11) AUTO_INCREMENT PRIMARY KEY,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;name VARCHAR(100) NOT NULL,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;email VARCHAR(100) NOT NULL,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;branch VARCHAR(50) NOT NULL,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;unit VARCHAR(20) NOT NULL,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;issue_type VARCHAR(30) NOT NULL,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;priority VARCHAR(10) NOT NULL,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;subject VARCHAR(200) NOT NULL,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;description TEXT NOT NULL,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;status VARCHAR(20) DEFAULT 'Open',<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP<br>
+                        );
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h3><span class="step-number">7</span>Akses Aplikasi</h3>
+                    <p>Buka browser dan akses:</p>
+                    <div class="code">
+                        http://localhost/ticketing-system
+                    </div>
+                    <p>Aplikasi ticketing siap digunakan!</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Konfigurasi Email (Opsional)</h2>
+                <p>Untuk mengaktifkan fitur notifikasi email, ikuti langkah berikut:</p>
+                
+                <div class="step">
+                    <h3><span class="step-number">1</span>Konfigurasi PHP.ini</h3>
+                    <p>Buka file php.ini di folder XAMPP (biasanya di C:\xampp\php\php.ini)</p>
+                    <p>Cari dan modifikasi pengaturan berikut:</p>
+                    <div class="code">
+                        [mail function]<br>
+                        SMTP = smtp.gmail.com<br>
+                        smtp_port = 587<br>
+                        sendmail_from = your.email@gmail.com<br>
+                        sendmail_path = "\"C:\xampp\sendmail\sendmail.exe\" -t"
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h3><span class="step-number">2</span>Konfigurasi Sendmail</h3>
+                    <p>Buka file sendmail.ini di folder C:\xampp\sendmail\sendmail.ini</p>
+                    <p>Ubah pengaturan sesuai dengan provider email Anda:</p>
+                    <div class="code">
+                        smtp_server=smtp.gmail.com<br>
+                        smtp_port=587<br>
+                        error_logfile=error.log<br>
+                        debug_logfile=debug.log<br>
+                        auth_username=your.email@gmail.com<br>
+                        auth_password=your-app-password<br>
+                        force_sender=your.email@gmail.com
+                    </div>
+                    
+                    <div class="warning">
+                        <p><strong>Peringatan:</strong> Untuk Gmail, Anda perlu membuat "App Password" karena password biasa tidak akan bekerja. Matikan juga verifikasi 2 langkah sementara saat konfigurasi.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Pemecahan Masalah (Troubleshooting)</h2>
+                
+                <div class="step">
+                    <h3>Apache tidak bisa start</h3>
+                    <p>Jika Apache tidak bisa dijalankan, kemungkinan port 80 atau 443 sedang digunakan.</p>
+                    <p>Solusi: Ganti port Apache di httpd.conf dan httpd-ssl.conf</p>
+                </div>
+                
+                <div class="step">
+                    <h3>Error koneksi database</h3>
+                    <p>Pastikan MySQL berjalan dan kredensial database di config.php benar.</p>
+                </div>
+                
+                <div class="step">
+                    <h3>Email tidak terkirim</h3>
+                    <p>Periksa konfigurasi sendmail.ini dan pastikan menggunakan app password untuk Gmail.</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2023 Ticketing System - Panduan Instalasi XAMPP</p>
+        </footer>
+    </div>
+</body>
+</html>
