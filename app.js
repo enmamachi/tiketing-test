@@ -38,7 +38,7 @@ const writeTickets = (tickets) => {
   }
 };
 
-// Konfigurasi Nodemailer - YANG SUDAH DIPERBAIKI
+// Konfigurasi Nodemailer
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -71,6 +71,12 @@ app.get('/', (req, res) => {
   });
 });
 
+// Halaman admin pusat
+app.get('/admin', (req, res) => {
+  const tickets = readTickets();
+  res.render('admin', { tickets });
+});
+
 app.get('/tickets', (req, res) => {
   const tickets = readTickets();
   res.render('ticket-list', { tickets });
@@ -89,7 +95,7 @@ app.post('/create-ticket', (req, res) => {
     priority,
     subject,
     description,
-    status: 'Open',
+    status: 'Menunggu Antrian',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
   };
@@ -142,6 +148,7 @@ app.post('/create-ticket', (req, res) => {
   });
 });
 
+// Update status tiket oleh admin
 app.post('/update-ticket/:id', (req, res) => {
   const { id } = req.params;
   const { status, response } = req.body;
@@ -150,26 +157,38 @@ app.post('/update-ticket/:id', (req, res) => {
   const ticketIndex = tickets.findIndex(t => t.id === id);
   
   if (ticketIndex !== -1) {
+    const oldStatus = tickets[ticketIndex].status;
     tickets[ticketIndex].status = status;
     tickets[ticketIndex].updatedAt = new Date().toISOString();
     
     if (response) {
       tickets[ticketIndex].response = response;
       tickets[ticketIndex].respondedAt = new Date().toISOString();
-      
-      // Kirim email balasan ke pengguna
+    }
+    
+    writeTickets(tickets);
+    
+    // Kirim email notifikasi perubahan status
+    if (oldStatus !== status) {
       const mailOptions = {
         from: process.env.EMAIL_USER,
         to: tickets[ticketIndex].email,
-        subject: `Update Tiket #${id} - ${tickets[ticketIndex].subject}`,
+        subject: `Update Status Tiket #${id} - ${tickets[ticketIndex].subject}`,
         html: `
-          <h2>Update Tiket Support</h2>
+          <h2>Update Status Tiket Support</h2>
           <p>Halo ${tickets[ticketIndex].name},</p>
-          <p>Tim support telah memberikan tanggapan untuk tiket Anda:</p>
+          <p>Status tiket Anda telah diperbarui:</p>
+          <ul>
+            <li><strong>ID Tiket:</strong> ${id}</li>
+            <li><strong>Subjek:</strong> ${tickets[ticketIndex].subject}</li>
+            <li><strong>Status Baru:</strong> ${status}</li>
+          </ul>
+          ${response ? `
+          <p>Tim support telah memberikan tanggapan:</p>
           <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 15px 0;">
             ${response}
           </div>
-          <p><strong>Status Tiket:</strong> ${status}</p>
+          ` : ''}
           <br>
           <p>Salam,<br>Tim Support</p>
         `
@@ -177,15 +196,30 @@ app.post('/update-ticket/:id', (req, res) => {
       
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-          console.log('Error sending response email:', error);
+          console.log('Error sending status update email:', error);
         } else {
-          console.log('Response email sent:', info.response);
+          console.log('Status update email sent:', info.response);
         }
       });
     }
     
+    res.json({ success: true, message: 'Status tiket berhasil diupdate' });
+  } else {
+    res.status(404).json({ success: false, message: 'Tiket tidak ditemukan' });
+  }
+});
+
+// Hapus tiket
+app.delete('/delete-ticket/:id', (req, res) => {
+  const { id } = req.params;
+  
+  let tickets = readTickets();
+  const initialLength = tickets.length;
+  tickets = tickets.filter(t => t.id !== id);
+  
+  if (tickets.length < initialLength) {
     writeTickets(tickets);
-    res.json({ success: true, message: 'Tiket berhasil diupdate' });
+    res.json({ success: true, message: 'Tiket berhasil dihapus' });
   } else {
     res.status(404).json({ success: false, message: 'Tiket tidak ditemukan' });
   }
@@ -194,4 +228,5 @@ app.post('/update-ticket/:id', (req, res) => {
 // Jalankan server
 app.listen(PORT, () => {
   console.log(`Server berjalan di http://localhost:${PORT}`);
+  console.log(`Halaman admin: http://localhost:${PORT}/admin`);
 });
