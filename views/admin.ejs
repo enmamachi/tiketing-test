@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Helpdesk System</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-headset"></i>
+                Helpdesk System - Admin Panel
+            </div>
+            <nav>
+                <a href="/" class="btn"><i class="fas fa-home"></i> Halaman User</a>
+                <a href="/tickets" class="btn"><i class="fas fa-list"></i> Semua Tiket</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 style="margin-bottom: 20px;"><i class="fas fa-cog"></i> Panel Admin Pusat</h1>
+        
+        <div class="admin-stats">
+            <div class="stat-card">
+                <div class="stat-number"><%= tickets.length %></div>
+                <div class="stat-label">Total Tiket</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number"><%= tickets.filter(t => t.status === 'Menunggu Antrian').length %></div>
+                <div class="stat-label">Menunggu Antrian</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number"><%= tickets.filter(t => t.status === 'Sedang Dikerjakan').length %></div>
+                <div class="stat-label">Sedang Dikerjakan</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number"><%= tickets.filter(t => t.status === 'Selesai').length %></div>
+                <div class="stat-label">Selesai</div>
+            </div>
+        </div>
+        
+        <div class="admin-controls">
+            <div class="filter-group">
+                <label for="statusFilter">Filter Status:</label>
+                <select id="statusFilter">
+                    <option value="all">Semua Status</option>
+                    <option value="Menunggu Antrian">Menunggu Antrian</option>
+                    <option value="Sedang Dikerjakan">Sedang Dikerjakan</option>
+                    <option value="Selesai">Selesai</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="priorityFilter">Filter Prioritas:</label>
+                <select id="priorityFilter">
+                    <option value="all">Semua Prioritas</option>
+                    <option value="Tinggi">Tinggi</option>
+                    <option value="Sedang">Sedang</option>
+                    <option value="Rendah">Rendah</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="unitFilter">Filter Unit:</label>
+                <select id="unitFilter">
+                    <option value="all">Semua Unit</option>
+                    <option value="Cafe">Cafe</option>
+                    <option value="Waserda">Waserda</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="ticket-list">
+            <h2><i class="fas fa-ticket-alt"></i> Daftar Tiket</h2>
+            
+            <% if (tickets.length === 0) { %>
+                <p class="no-tickets">Belum ada tiket yang dibuat.</p>
+            <% } else { %>
+                <% tickets.forEach(function(ticket) { %>
+                    <div class="ticket-item unit-<%= ticket.unit.toLowerCase() %> priority-<%= ticket.priority.toLowerCase() %> admin-ticket">
+                        <div class="ticket-header">
+                            <div class="ticket-title">#<%= ticket.id %> - <%= ticket.subject %></div>
+                            <span class="ticket-status status-<%= ticket.status.toLowerCase().replace(/ /g, '-') %>">
+                                <%= ticket.status %>
+                            </span>
+                        </div>
+                        <div class="ticket-meta">
+                            <div><i class="fas fa-user"></i> <%= ticket.name %></div>
+                            <div><i class="fas fa-envelope"></i> <%= ticket.email %></div>
+                            <div><i class="fas fa-store"></i> <%= ticket.branch %></div>
+                            <div><i class="fas fa-bug"></i> <%= ticket.issueType %></div>
+                            <div><i class="fas fa-exclamation-circle"></i> <%= ticket.priority %></div>
+                        </div>
+                        <div class="ticket-desc">
+                            <%= ticket.description %>
+                        </div>
+                        
+                        <% if (ticket.response) { %>
+                        <div class="ticket-response">
+                            <h4><i class="fas fa-comment-dots"></i> Tanggapan Support:</h4>
+                            <p><%= ticket.response %></p>
+                            <small>Ditanggapi pada: <%= new Date(ticket.respondedAt).toLocaleString('id-ID') %></small>
+                        </div>
+                        <% } %>
+                        
+                        <div class="ticket-footer">
+                            <small>Dibuat: <%= new Date(ticket.createdAt).toLocaleString('id-ID') %></small>
+                            <% if (ticket.updatedAt !== ticket.createdAt) { %>
+                                <small>Diupdate: <%= new Date(ticket.updatedAt).toLocaleString('id-ID') %></small>
+                            <% } %>
+                        </div>
+                        
+                        <div class="admin-actions">
+                            <h4><i class="fas fa-cogs"></i> Aksi Admin:</h4>
+                            <div class="action-buttons">
+                                <button class="btn-status btn-waiting" data-id="<%= ticket.id %>" data-status="Menunggu Antrian">
+                                    <i class="fas fa-clock"></i> Menunggu Antrian
+                                </button>
+                                <button class="btn-status btn-process" data-id="<%= ticket.id %>" data-status="Sedang Dikerjakan">
+                                    <i class="fas fa-tools"></i> Sedang Dikerjakan
+                                </button>
+                                <button class="btn-status btn-completed" data-id="<%= ticket.id %>" data-status="Selesai">
+                                    <i class="fas fa-check-circle"></i> Selesai
+                                </button>
+                            </div>
+                            
+                            <div class="response-form">
+                                <h4><i class="fas fa-reply"></i> Beri Tanggapan:</h4>
+                                <textarea class="response-text" data-id="<%= ticket.id %>" placeholder="Tulis tanggapan untuk pengirim tiket..."></textarea>
+                                <button class="btn-send-response" data-id="<%= ticket.id %>">
+                                    <i class="fas fa-paper-plane"></i> Kirim Tanggapan
+                                </button>
+                            </div>
+                            
+                            <button class="btn-delete" data-id="<%= ticket.id %>">
+                                <i class="fas fa-trash"></i> Hapus Tiket
+                            </button>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } %>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Helpdesk System - Admin Panel</h3>
+                    <p>Panel administrasi untuk mengelola tiket support.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Kontak</h3>
+                    <p><i class="fas fa-envelope"></i> helpdesk@perusahaan.com</p>
+                    <p><i class="fas fa-phone"></i> 021-1234-5678</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Helpdesk System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i> <span id="notification-text"></span>
+    </div>
+
+    <script src="/js/admin.js"></script>
+</body>
+</html>
