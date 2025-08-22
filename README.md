@@ -3,13 +3,15 @@ ticketing-system/
 ├── package.json
 ├── .env
 ├── views/
-│   ├── index.ejs
-│   └── ticket-list.ejs
+│   ├── index.ejs          # Halaman user
+│   ├── admin.ejs          # Halaman admin pusat
+│   └── ticket-list.ejs    # Halaman daftar tiket
 ├── public/
 │   ├── css/
 │   │   └── style.css
 │   └── js/
-│       └── script.js
+│       ├── script.js
+│       └── admin.js
 └── data/
     └── tickets.json
 
