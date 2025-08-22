@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Tiket - Helpdesk System</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-headset"></i>
+                Helpdesk System
+            </div>
+            <nav>
+                <a href="/" class="btn"><i class="fas fa-home"></i> Beranda</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 style="margin-bottom: 20px;"><i class="fas fa-ticket-alt"></i> Daftar Semua Tiket</h1>
+        
+        <% if (tickets.length === 0) { %>
+            <p class="no-tickets">Belum ada tiket yang dibuat.</p>
+        <% } else { %>
+            <div class="ticket-list">
+                <% tickets.forEach(function(ticket) { %>
+                    <div class="ticket-item unit-<%= ticket.unit.toLowerCase() %> priority-<%= ticket.priority.toLowerCase() %>">
+                        <div class="ticket-header">
+                            <div class="ticket-title">#<%= ticket.id %> - <%= ticket.subject %></div>
+                            <span class="ticket-status status-<%= ticket.status.toLowerCase().replace(' ', '-') %>">
+                                <%= ticket.status %>
+                            </span>
+                        </div>
+                        <div class="ticket-meta">
+                            <div><i class="fas fa-user"></i> <%= ticket.name %></div>
+                            <div><i class="fas fa-envelope"></i> <%= ticket.email %></div>
+                            <div><i class="fas fa-store"></i> <%= ticket.branch %></div>
+                            <div><i class="fas fa-bug"></i> <%= ticket.issueType %></div>
+                            <div><i class="fas fa-exclamation-circle"></i> <%= ticket.priority %></div>
+                        </div>
+                        <div class="ticket-desc">
+                            <%= ticket.description %>
+                        </div>
+                        <div class="ticket-footer">
+                            <small>Dibuat: <%= new Date(ticket.createdAt).toLocaleString('id-ID') %></small>
+                            <% if (ticket.updatedAt !== ticket.createdAt) { %>
+                                <small>Diupdate: <%= new Date(ticket.updatedAt).toLocaleString('id-ID') %></small>
+                            <% } %>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } %>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Helpdesk System</h3>
+                    <p>Sistem ticketing untuk pelaporan kendala dari cabang ke pusat.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Kontak</h3>
+                    <p><i class="fas fa-envelope"></i> helpdesk@perusahaan.com</p>
+                    <p><i class="fas fa-phone"></i> 021-1234-5678</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Helpdesk System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
