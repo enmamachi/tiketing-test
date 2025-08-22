@@ -38,8 +38,8 @@ const writeTickets = (tickets) => {
   }
 };
 
-// Konfigurasi Nodemailer
-const transporter = nodemailer.createTransporter({
+// Konfigurasi Nodemailer - YANG SUDAH DIPERBAIKI
+const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: process.env.EMAIL_USER,
@@ -125,15 +125,20 @@ app.post('/create-ticket', (req, res) => {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log('Error sending email:', error);
+      // Tetap beri respons sukses meski email gagal dikirim
+      res.json({ 
+        success: true, 
+        message: `Tiket berhasil dibuat! Namun email konfirmasi gagal dikirim.`,
+        ticketId: newTicket.id
+      });
     } else {
       console.log('Email sent:', info.response);
+      res.json({ 
+        success: true, 
+        message: `Tiket berhasil dibuat! Konfirmasi telah dikirim ke ${email}`,
+        ticketId: newTicket.id
+      });
     }
-  });
-  
-  res.json({ 
-    success: true, 
-    message: `Tiket berhasil dibuat! Konfirmasi telah dikirim ke ${email}`,
-    ticketId: newTicket.id
   });
 });
 
