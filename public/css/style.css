@@ -1,0 +1,53 @@
+/* File CSS yang sama seperti sebelumnya, ditambahkan beberapa class baru */
+.no-tickets {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.ticket-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    color: #6b7280;
+    font-size: 0.8rem;
+}
+
+.unit-cafe {
+    border-top: 3px solid #8b5cf6;
+}
+
+.unit-waserda {
+    border-top: 3px solid #0ea5e9;
+}
+
+.priority-rendah {
+    border-left: 4px solid #10b981;
+}
+
+.priority-sedang {
+    border-left: 4px solid #f59e0b;
+}
+
+.priority-tinggi {
+    border-left: 4px solid #ef4444;
+}
+
+.status-open {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.status-dalam-proses {
+    background: #ffedd5;
+    color: #ea580c;
+}
+
+.status-selesai {
+    background: #dbeafe;
+    color: #2563eb;
+}
