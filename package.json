@@ -16,5 +16,12 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
-  }
+  },
+  "keywords": [
+    "ticketing",
+    "helpdesk",
+    "support"
+  ],
+  "author": "Developer",
+  "license": "MIT"
 }
