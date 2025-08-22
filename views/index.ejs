@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helpdesk System - Pelaporan Kendala</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-headset"></i>
+                Helpdesk System
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="status-number"><%= stats.total %></div>
+                <div class="status-text">Tiket Dibuat</div>
+            </div>
+            <div class="status-item">
+                <div class="status-number"><%= stats.inProgress %></div>
+                <div class="status-text">Dalam Proses</div>
+            </div>
+            <div class="status-item">
+                <div class="status-number"><%= stats.resolved %></div>
+                <div class="status-text">Selesai</div>
+            </div>
+            <div class="status-item">
+                <div class="status-number"><%= stats.highPriority %></div>
+                <div class="status-text">Prioritas Tinggi</div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="sidebar">
+                <h3>Statistik Tiket</h3>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-label">
+                            <i class="fas fa-store"></i>
+                            Café
+                        </div>
+                        <div class="stat-value"><%= stats.cafe %></div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">
+                            <i class="fas fa-shopping-cart"></i>
+                            Waserda
+                        </div>
+                        <div class="stat-value"><%= stats.waserda %></div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">
+                            <i class="fas fa-laptop-code"></i>
+                            IT & Jaringan
+                        </div>
+                        <div class="stat-value"><%= stats.it %></div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">
+                            <i class="fas fa-cash-register"></i>
+                            Aplikasi POS
+                        </div>
+                        <div class="stat-value"><%= stats.pos %></div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">
+                            <i class="fas fa-users"></i>
+                            SDM
+                        </div>
+                        <div class="stat-value"><%= stats.sdm %></div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">
+                            <i class="fas fa-question-circle"></i>
+                            Umum
+                        </div>
+                        <div class="stat-value"><%= stats.umum %></div>
+                    </div>
+                </div>
+                
+                <h3>Panduan</h3>
+                <p>Untuk kendala darurat, hubungi:</p>
+                <p><i class="fas fa-phone"></i> 021-1234-5678 (IT Support)</p>
+                <p><i class="fas fa-envelope"></i> helpdesk@perusahaan.com</p>
+                
+                <a href="/tickets" class="btn btn-block" style="margin-top: 20px;">
+                    <i class="fas fa-list"></i> Lihat Semua Tiket
+                </a>
+            </div>
+            
+            <div class="ticket-form">
+                <h2><i class="fas fa-plus-circle"></i> Buat Tiket Baru</h2>
+                
+                <form id="helpdeskForm">
+                    <div class="form-group">
+                        <label for="name">Nama Lengkap</label>
+                        <input type="text" id="name" name="name" required placeholder="Masukkan nama lengkap">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="Masukkan alamat email">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="branch">Cabang</label>
+                        <select id="branch" name="branch" required>
+                            <option value="">Pilih cabang</option>
+                            <option value="Jakarta Pusat">Jakarta Pusat</option>
+                            <option value="Jakarta Selatan">Jakarta Selatan</option>
+                            <option value="Jakarta Barat">Jakarta Barat</option>
+                            <option value="Jakarta Timur">Jakarta Timur</option>
+                            <option value="Jakarta Utara">Jakarta Utara</option>
+                            <option value="Bogor">Bogor</option>
+                            <option value="Depok">Depok</option>
+                            <option value="Tangerang">Tangerang</option>
+                            <option value="Bekasi">Bekasi</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="unit">Unit Usaha</label>
+                        <select id="unit" name="unit" required>
+                            <option value="">Pilih unit usaha</option>
+                            <option value="Cafe">Cafe</option>
+                            <option value="Waserda">Waserda</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="issueType">Jenis Kendala</label>
+                        <select id="issueType" name="issueType" required>
+                            <option value="">Pilih jenis kendala</option>
+                            <option value="Umum">Umum</option>
+                            <option value="SDM">SDM</option>
+                            <option value="IT dan Jaringan">IT dan Jaringan</option>
+                            <option value="Aplikasi POS">Aplikasi POS</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="priority">Prioritas</label>
+                        <select id="priority" name="priority" required>
+                            <option value="Rendah">Rendah</option>
+                            <option value="Sedang" selected>Sedang</option>
+                            <option value="Tinggi">Tinggi</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subjek</label>
+                        <input type="text" id="subject" name="subject" required placeholder="Masukkan subjek kendala">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Deskripsi Kendala</label>
+                        <textarea id="description" name="description" required placeholder="Jelaskan kendala yang dialami secara detail"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-block">
+                        <i class="fas fa-paper-plane"></i> Kirim Tiket
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="ticket-list">
+            <h2><i class="fas fa-ticket-alt"></i> Tiket Terbaru</h2>
+            
+            <% if (tickets.length === 0) { %>
+                <p class="no-tickets">Belum ada tiket yang dibuat.</p>
+            <% } else { %>
+                <% tickets.forEach(function(ticket) { %>
+                    <div class="ticket-item unit-<%= ticket.unit.toLowerCase() %> priority-<%= ticket.priority.toLowerCase() %>">
+                        <div class="ticket-header">
+                            <div class="ticket-title"><%= ticket.subject %></div>
+                            <span class="ticket-status status-<%= ticket.status.toLowerCase().replace(' ', '-') %>">
+                                <%= ticket.status %>
+                            </span>
+                        </div>
+                        <div class="ticket-meta">
+                            <div><i class="fas fa-user"></i> <%= ticket.name %></div>
+                            <div><i class="fas fa-store"></i> <%= ticket.branch %></div>
+                            <div><i class="fas fa-bug"></i> <%= ticket.issueType %></div>
+                        </div>
+                        <div class="ticket-desc">
+                            <%= ticket.description %>
+                        </div>
+                        <div class="ticket-footer">
+                            <small>Dibuat: <%= new Date(ticket.createdAt).toLocaleString('id-ID') %></small>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } %>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Helpdesk System</h3>
+                    <p>Sistem ticketing untuk pelaporan kendala dari cabang ke pusat.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Kontak</h3>
+                    <p><i class="fas fa-envelope"></i> helpdesk@perusahaan.com</p>
+                    <p><i class="fas fa-phone"></i> 021-1234-5678</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Follow Kami</h3>
+                    <p>
+                        <a href="#" style="color: white; margin-right: 10px;"><i class="fab fa-facebook"></i></a>
+                        <a href="#" style="color: white; margin-right: 10px;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="color: white;"><i class="fab fa-linkedin"></i></a>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Helpdesk System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i> <span id="notification-text"></span>
+    </div>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
